@@ -3,6 +3,7 @@ import { randomUUID } from "crypto"
 import { ensuredAuthenticated } from './middleware'
 
 const router = Router()
+
 interface IProductDTO {
     name: string;
     description: string;
@@ -12,7 +13,7 @@ interface IProductDTO {
 
 const products: IProductDTO[] = []
 
-router.get("/product/findByName", (req, res) => {
+router.get("/products/findByName", (req, res) => {
     const { name } = req.query
     const product = products.filter((p) => { p.name.includes(String(name)) })
     return res.json(product)
@@ -49,14 +50,14 @@ router.put("/products/:id", ensuredAuthenticated, (req, res) => {
         return res.status(404).json({ message: "Product not found" })
     }
     const product: IProductDTO = Object.assign({
-        description,
+        id,
         name,
-        price,
-        id: randomUUID()
+        description,
+        price
     })
 
     products[productIndex] = product
     return res.json(product)
 })
 
-export default router
+export { router }
