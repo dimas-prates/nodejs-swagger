@@ -1,4 +1,4 @@
-import { NextFunction, Request, response, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export async function ensuredAuthenticated(
     req: Request, res: Response, next: NextFunction
